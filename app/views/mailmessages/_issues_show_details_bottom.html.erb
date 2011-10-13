@@ -1,0 +1,6 @@
+<%= link_to "<b>#{l(:label_mailmessages)}</b> #{mailmessage}",
+{:controller => 'mailmessages', :action => 'show', :id => mailmessage} %>
+<% if mailmessage.attachments.any? %>
+<br />
+<%= link_to_attachments mailmessage%>
+<% end %>

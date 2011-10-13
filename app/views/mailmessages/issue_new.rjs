@@ -1,0 +1,1 @@
+page[:message_command].replace_html :partial => "issues/edit"

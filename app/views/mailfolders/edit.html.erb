@@ -1,0 +1,8 @@
+<h2><%=h l(:label_mailfolders) %>#<%=h @mailfolder.id %></h2>
+
+<% labelled_tabular_form_for :mailfolder, @mailfolder, :url => { :id => @mailfolder.id}  do |f| %>
+	<%= render :partial => 'form', :locals => { :form => f } %>
+        <%= f.submit l(:button_edit) %>
+<% end %>
+
+

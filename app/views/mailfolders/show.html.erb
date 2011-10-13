@@ -1,0 +1,47 @@
+<div class="contextual">
+<%= link_to l(:button_edit), {:action => 'edit', :id => @mailfolder},
+			  :class => 'icon icon-edit' %>
+<%= link_to l(:button_delete), {:action => 'destroy', :id => @mailfolder},
+			   :confirm => l(:text_are_you_sure), :method => :post,
+			   :class => 'icon icon-del' %>
+</div>
+
+<h2><%=h l(:label_mailfolders) %>#<%=h @mailfolder.id %></h2>
+<div class="issue">
+<p>
+<b><%=h l(:field_mailid)%></b>
+ <%=h @mailfolder.mailid %>
+</p>
+
+<p>
+<b><%=h l(:field_server)%></b>
+ <%=h @mailfolder.server %>
+</p>
+
+<p>
+<b><%=h l(:field_port)%></b>
+ <%=h @mailfolder.port %>
+</p>
+
+<p>
+<b><%=h l(:field_usessl)%></b>
+ <%=h @mailfolder.usessl %>
+</p>
+
+<p>
+<b><%=h l(:field_folder)%></b>
+ <%=h @mailfolder.folder %>
+</p>
+
+<p>
+<b><%=h l(:field_project_id)%></b>
+ <%=h @mailfolder.project.name %>
+</p>
+
+<p>
+<b><%=h l(:field_included)%></b>
+ <%=h @mailfolder.included %>
+</p>
+</div>
+
+

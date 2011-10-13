@@ -1,0 +1,25 @@
+<p id='mailmessage_form'>
+<label><%=h l(:label_message_link) %></label>
+<label class='floating'>
+	<%=check_box_tag :mailmessage_id,mailmessage.id,true %>
+	<%=h mailmessage %>
+</label>
+</p>
+<p id='mailmessage_form'>
+<label><%=h l(:label_user) %></label>
+<label class='floating'>
+	<%if _user = User.find_by_mail(mailmessage.from)%>
+		<%=radio_button_tag('user',_user.id,true) + _user.name%><br />
+	<%else%>
+		<%=radio_button_tag('user','make',true) + "#{l(:button_create)}:(#{mailmessage.from})" %>
+		<%=hidden_field_tag('user_mail',mailmessage.from)%>
+		<br /><%=radio_button_tag('user',User.anonymous.id) + User.anonymous.name%>
+	<%end%>
+	<%unless User.current == _user%>
+		<br /><%=radio_button_tag('user',User.current.id) + User.current.name%>
+	<%end%>
+	<%unless mailmessage.mailfolder.user == _user || mailmessage.mailfolder.user == User.current%>
+		<br /><%=radio_button_tag('user',mailmessage.mailfolder.user.id) + mailmessage.mailfolder.user.name%>
+	<%end%>
+</label>
+</p>

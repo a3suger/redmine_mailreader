@@ -1,0 +1,34 @@
+<div class="contextual">
+	<%= link_to l(:label_mailfolders_new), { :action => :new ,:project_id =>@project} , :class => 'icon icon-add' %>
+</div>
+
+<h2><%=h l :label_mailfolders %></h2>
+
+<% if @folders.blank? %>
+	<p class="nodata"><%=h  l(:label_no_data) %></p>
+        <% else %>
+<table class="list">
+	<thead>
+		<tr>
+		<th><%=h l(:field_name) %></th>
+		<th><%=h l(:field_included) %></th>
+		<th><%=h l(:label_messages_count) %></th>
+		<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @folders.each do |folder| %>
+	<tr class="<%= cycle('odd','even') %>">
+		<td><%=h folder.name %></td>
+		<td><%=h folder.included %></td>
+		<td><%=h folder.mailmessages.size  %></td>
+		<td class="buttons">
+			<%= link_to l(:button_show),  {:action => 'show',  :id => folder} %>
+			<%= link_to l(:button_detail),{:action => 'detail',:id => folder} %>
+			<%= link_to l(:button_fetch), {:action => 'fetch', :id => folder} %>
+		</td>
+  	</tr>
+	<% end %>
+	</tbody>
+</table>
+<% end %>

@@ -1,0 +1,18 @@
+# test/fixtures/mailmessage.yml
+one:
+	id: 1
+        mailfolder_id: 1
+
+two:
+	id: 2
+        mailfolder_id: 1
+
+three:
+	id: 3
+        mailfolder_id: 2
+
+fore:
+	id: 4
+	mailfolder_id: 1
+	parent_id:  1
+

@@ -1,0 +1,22 @@
+ja:
+ label_mailreader: メールリーダ 
+ label_mailfolders: メールフォルダ
+ label_mailfolders_new: 新しいメールフォルダ
+ field_mailid: メールID
+ field_server: サーバ
+ field_folder: フォルダ
+ field_port: ポート番号
+ field_usessl: sslを使う
+ field_project_id: プロジェクト
+ field_included: 取込み
+ field_date: 日付
+ field_from: 差出人
+ field_parent_id: 元のメールメッセージID
+ label_messages_count: メッセージ数
+ label_messages_count_none: 未処理数
+ label_unincluded: 未取込み
+ label_mailmessages: メールメッセージ
+ button_detail: メッセージ表示
+ button_fetch:  取込
+ label_message_link: メッセージとのリンク
+ label_issue_edit: "#%{id} のチケットの編集"

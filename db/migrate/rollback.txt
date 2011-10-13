@@ -1,0 +1,10 @@
+出典 http://kusu.way-nifty.com/blog/2009/09/rake-dbmigrate_.html
+
+
+1）作られたDBテーブルを自分で消す
+2）migrationの記憶をけす．
+
+drop table mailfolders;
+drop table mailmessages;
+delete from schema_migrations where version="20110718152211-redmine_imapreader";
+delete from attachments where container_type="Mailmessage";

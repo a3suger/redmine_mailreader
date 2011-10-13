@@ -1,0 +1,36 @@
+<h2>
+<%=link_to "#{l:label_mailfolders} ##{@mailmessage.mailfolder.id}",:controller => "mailfolders", :action => 'detail', :id => @mailmessage.mailfolder.id %> &#187;
+<%=h "#{l(:label_mailmessages)} ##{@mailmessage.id}" %>
+</h2>
+<div class="issue">
+<%= display_messages_by_tree (@mailmessage) %>
+<%if @mailmessage.issue_of_ancestor %>
+<hr />
+<%end%>
+<%= link_to_issue_from_mailmessage(@mailmessage) %>
+<%unless @mailmessage.done?%>
+	<hr />
+<%end%>
+<%= button_to_edit_issue(@mailmessage) %>
+<%= button_to_new_issue(@mailmessage) %>
+<%= button_to_seen(@mailmessage) %>
+</div>
+
+<div id="message_main" class="issue">
+<p>
+<b><%=h l(:field_from)%></b>
+ <%=h @mailmessage.user %> :
+ <%=h @mailmessage.from %>
+</p>
+
+<p>
+<pre>
+<%=h @mailmessage.notes %>
+</pre>
+</p>
+
+<% if @mailmessage.attachments.any? %>
+<hr />
+<%= link_to_attachments @mailmessage %>
+<% end %>
+</div>

@@ -1,0 +1,31 @@
+<h2><%=h l :label_mailmessages %></h2>
+<% if @messages.blank? %>
+	<p class="nodata"><%=h  l(:label_no_data) %></p>
+        <% else %>
+<table class="list">
+	<thead>
+		<tr>
+		<th>#</th>
+		<th>issue</th>
+		<th><%=h l(:field_subject) %></th>
+		<th><%=h l(:field_from) %></th>
+		<th><%=h l(:field_date) %></th>
+		<th><%=h l(:label_messages_count) %></th>
+		<th><%=h l(:label_messages_count_none) %></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @messages.each do |message| %>
+	<tr class="<%= cycle('odd','even') %>">
+		<td><%=h message.id %></td>
+		<td><%=h message.has_an_issue? ? message.issue_of_ancestor.id : '-' %></td>
+		<td><%= link_to message.subject.toutf8,{:controller => 'mailmessages', :action => 'show', :id => message.id} %></td>
+		<td><%=h message.from %></td>
+		<td><%=h format_time(message.created_on) %></td>
+		<td><%=h message.num_node %></td>
+		<td><%=h message.num_none %></td>
+  	</tr>
+	<% end %>
+	</tbody>
+</table>
+<% end %>

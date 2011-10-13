@@ -1,0 +1,3 @@
+= redmane_mailreader
+
+Mailreader in redmine
