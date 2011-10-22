@@ -3,7 +3,13 @@
 <%=h "#{l(:label_mailmessages)} ##{@mailmessage.id}" %>
 </h2>
 <div class="issue">
+<hr />
 <%= display_messages_by_tree (@mailmessage) %>
+<% form_tag (:action => "set_parent", :id => @mailmessage.id) do %>
+<%= label_tag 'parent_id' %>:
+<%= text_field_tag 'parent_id' %> 
+<%= submit_tag "set!" %>
+<% end %>
 <%if @mailmessage.issue_of_ancestor %>
 <hr />
 <%end%>

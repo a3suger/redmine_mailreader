@@ -7,23 +7,23 @@
 		<tr>
 		<th>#</th>
 		<th>issue</th>
+		<th><%=h l(:label_messages_count) %></th>
+		<th><%=h l(:label_messages_count_none) %></th>
 		<th><%=h l(:field_subject) %></th>
 		<th><%=h l(:field_from) %></th>
 		<th><%=h l(:field_date) %></th>
-		<th><%=h l(:label_messages_count) %></th>
-		<th><%=h l(:label_messages_count_none) %></th>
 		</tr>
 	</thead>
 	<tbody>
 	<% @messages.each do |message| %>
 	<tr class="<%= cycle('odd','even') %>">
 		<td><%=h message.id %></td>
-		<td><%=h message.has_an_issue? ? message.issue_of_ancestor.id : '-' %></td>
-		<td><%= link_to message.subject.toutf8,{:controller => 'mailmessages', :action => 'show', :id => message.id} %></td>
-		<td><%=h message.from %></td>
-		<td><%=h format_time(message.created_on) %></td>
+		<td><%=h message.has_an_issue? ? message.issue_of_ancestor.id.to_s+':'+message.issue_of_ancestor.status.to_s : '-' %></td>
 		<td><%=h message.num_node %></td>
 		<td><%=h message.num_none %></td>
+		<td><%= link_to message.subject.toutf8,{:controller => 'mailmessages', :action => 'show', :id => message.id}, :target => '_new' %></td>
+		<td><%=h message.from %></td>
+		<td><%=h format_time(message.created_on) %></td>
   	</tr>
 	<% end %>
 	</tbody>

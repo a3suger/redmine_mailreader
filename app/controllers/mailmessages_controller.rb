@@ -3,7 +3,7 @@ class MailmessagesController < ApplicationController
 
   menu_item :mailreader
  
-  before_filter :find_mailmessage,  :only => [:show,:seen]
+  before_filter :find_mailmessage
 
   helper :attachments
   include AttachmentsHelper
@@ -11,6 +11,13 @@ class MailmessagesController < ApplicationController
 
   def show
   end
+
+  def set_parent
+        @mailmessage.parent_id = params[:parent_id]
+        @mailmessage.save!
+        redirect_to :action => :show, :id => @mailmessage
+  end
+
 
   def seen
 	@mailmessage.turn_seen
