@@ -29,7 +29,7 @@ module MailmessagesHelper
 	unless message.done?
 		url = url_for :action => :seen , :id => message
 		ret << "<form action='#{url}' method='post'>"
-		ret << "<input type='hidden' name='authenticity_token' value='#{form_authenticity_token}' />"
+		ret << make_hidden_string_value('authenticity_token',form_authenticity_token)
 		ret << "<input type='submit' name='commit' value='#{l(:label_seen)}' />"
 		ret << "</form>"
 	end
@@ -41,13 +41,13 @@ module MailmessagesHelper
         unless message.done?
 		url = url_for :controller => :issues, :action => :new , :project_id => message.project
 		ret << "<form action='#{url}' method='post'>"
-		ret << "<input type='hidden' name='authenticity_token' value='#{form_authenticity_token}' />"
-		ret << "<input type='hidden' name='mailmessage_id' value='#{message.id}' />"
-		ret << "<input type='hidden' name='issue[subject]' value='#{message.subject.toutf8}' />"
-		ret << "<input type='hidden' name='issue[description]' value='#{message.notes}' />"
-		ret << "<input type='hidden' name='issue[start_date]' value='#{message.created_on.strftime("%Y-%m-%d")}' />"
+		ret << make_hidden_string_value('authenticity_token',form_authenticity_token)
+		ret << make_hidden_int_value('mailmessage_id',message.id)
+		ret << make_hidden_string_value('issue[subject]',message.subject.toutf8)
+		ret << make_hidden_string_value('issue[description]',message.notes)
+		ret << make_hidden_string_value('issue[start_date]',message.created_on.strftime("%Y-%m-%d"))
 		if _parent_issue = message.issue_of_ancestor
-			ret << "<input type='hidden' name='issue[parent_issue_id]' value='#{_parent_issue.id}' />"
+			ret << make_hidden_int_value('issue[parent_issue_id]',_parent_issue.id)
 		end
 		ret << "<input type='submit' name='commit' value='#{l(:label_issue_new)}' />"
 		ret << "</form>"
@@ -60,9 +60,9 @@ module MailmessagesHelper
 	if !message.done? && _issue = message.issue_of_ancestor
 		url = url_for :controller => :issues, :action => :edit , :id => _issue
 		ret << "<form action='#{url}\' method='get'>"
-		ret << "<input type='hidden' name='authenticity_token' value='#{form_authenticity_token}' />"
-		ret << "<input type='hidden' name='mailmessage_id' value='#{message.id}' />"
-		ret << "<input type='hidden' name='issue[notes]' value='#{message.notes}' />"
+		ret << make_hidden_string_value('authenticity_token',form_authenticity_token)
+		ret << make_hidden_int_value('mailmessage_id',message.id)
+		ret << make_hidden_string_value('issue[notes]',message.notes)
 		ret << "<input type='submit' name='commit' value='#{l(:label_issue_edit,:id =>_issue.id)}' />"
 		ret << "</form>"
 	end
@@ -70,6 +70,14 @@ module MailmessagesHelper
   end
 
   private
+
+  def make_hidden_string_value(name,value)
+	"<input type='hidden' name='#{name}' value=\""+ERB::Util.html_escape(value).gsub(/"/, "&quot;")+"\" />"
+  end
+
+  def make_hidden_int_value(name,value)
+	"<input type='hidden' name='#{name}' value='#{value}' />"
+  end
 
   def display_messages_for_descendants(message,current_message)
 	ret = "<ul style='list-style-type:none;'>"
