@@ -1,0 +1,7 @@
+<h2><%=h l :label_mailmessages %></h2>
+<% if @messages.blank? %>
+	<p class="nodata"><%=h  l(:label_no_data) %></p>
+        <% else %>
+        <%= render :partial => 'mailmessages/list', :locals => {:messages => @messages} %>		
+<p class="pagination"><%= pagination_links_full @message_pages, @message_count %></p>
+<% end %>

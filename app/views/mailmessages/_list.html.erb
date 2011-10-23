@@ -1,0 +1,22 @@
+<div class="autoscroll">
+<table class="list mailmessages">
+	<thead>
+		<tr>
+		<th>#</th>
+		<th><%=h l(:field_subject) %></th>
+		<th><%=h l(:field_from) %></th>
+		<th><%=h l(:field_date) %></th>
+		</tr>
+	</thead>
+	<tbody>
+	<% @messages.each do |message| %>
+	<tr class="<%= cycle('odd','even') %>">
+		<td><%=h message.id %></td>
+		<td><%= link_to message.subject.toutf8,{:controller => 'mailmessages', :action => 'show', :id => message.id},:class => message.css_classes, :target => '_new' %></td>
+		<td><%=h message.from %></td>
+		<td><%=h format_time(message.created_on) %></td>
+  	</tr>
+	<% end %>
+	</tbody>
+</table>
+</div>
