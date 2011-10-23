@@ -2,8 +2,9 @@ class MailmessagesController < ApplicationController
   unloadable
 
   menu_item :mailreader
- 
-  before_filter :find_mailmessage
+
+  before_filter :find_mailfolder,  :only   => [:list]
+  before_filter :find_mailmessage, :except => [:list]
 
   helper :attachments
   include AttachmentsHelper
@@ -25,7 +26,28 @@ class MailmessagesController < ApplicationController
 	redirect_to :action => :show, :id => @mailmessage
   end
 
+  def list
+      @per_page = params['per_page'].to_i 
+      @per_page = 50 unless  ( @per_page > 0 )  
+      @message_count = @mailfolder.mailmessages.size
+      @message_pages = Paginator.new self, @message_count, @per_page, params['page']
+      @offset ||= @message_pages.current.offset
+      @messages = Mailmessage.find :all,:order => 'id DESC',
+                          :limit  =>  @message_pages.items_per_page,
+                          :offset =>  @message_pages.current.offset,
+			  :conditions => ["mailfolder_id = ?",@mailfolder.id]
+     respond_to do |format|
+        format.html { render :template => 'mailmessages/list', :layout => !request.xhr? }
+     end 
+  end
+
   private 
+
+  def find_mailfolder 
+	# @project variable must be set before calling the authorize filter
+	@mailfolder = Mailfolder.find(params[:mailfolder_id]) if params[:mailfolder_id]
+	@project = @mailfolder.project
+  end
 
   def find_mailmessage
 #	render_403 :message =>:notice_not_authorized if User.current.blank?

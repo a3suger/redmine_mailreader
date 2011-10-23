@@ -24,7 +24,7 @@
 		<td><%=h folder.mailmessages.size  %></td>
 		<td class="buttons">
 			<%= link_to l(:button_show),  {:action => 'show',  :id => folder} %>
-			<%= link_to l(:button_detail),{:action => 'detail',:id => folder} %>
+			<%= link_to l(:button_detail),{:controller => :mailmessages, :action => 'list',:mailfolder_id => folder.id} %>
 			<%= link_to l(:button_fetch), {:action => 'fetch', :id => folder} %>
 		</td>
   	</tr>
